@@ -1,0 +1,41 @@
+<main class="page">
+  <h1>Group Pre-Order</h1>
+
+  <section class="subheader">
+
+    <p>
+      <img src="assets/svg/address.svg" alt="" />
+      {{ invite.LocationAddress }}
+    </p>
+
+    <p>
+      <img src="assets/svg/calendar-green.svg" alt="" />
+      {{ invite.StartTime | date:'MMM dd, yyyy' }}
+    </p>
+
+    <p>
+      <img src="assets/svg/clock-green.svg" alt="" />
+      {{ invite.StartTime | date:'hh:mm' }} - {{ invite.EndTime | date:'hh:mm' }}
+    </p>
+  
+    <p>
+      <img src="assets/svg/people-green.svg" alt="" />
+      {{ participants().length }} of {{ invite.MaxGuestCount }} guests
+    </p>
+
+  </section>
+
+  <ul class="participants">
+    @for (person of participants(); track person.id) {
+      <li><app-participant-card [participant]="person" /></li>
+    }
+  </ul>
+
+  <section class="grandtotal">
+  
+    <h2>Grand Total</h2>
+    <p>{{ total | currency }}</p>
+  
+  </section>
+
+</main>
