@@ -104,4 +104,14 @@ public static class MockData
             Items = []
         }
     ];
+
+    public static List<Reservation> Reservations { get; } =
+    [
+        new Reservation
+        {
+            Id = "reservation-123",
+            OwnerId = "owner-1",
+            OwnerGuestSessionId = "owner-session-123"
+        }
+    ];
 }

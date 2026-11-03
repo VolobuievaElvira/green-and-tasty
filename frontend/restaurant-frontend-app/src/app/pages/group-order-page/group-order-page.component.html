@@ -25,17 +25,85 @@
 
   </section>
 
-  <ul class="participants">
+  
     @for (person of participants(); track person.id) {
-      <li><app-participant-card [participant]="person" /></li>
-    }
-  </ul>
+      <ul class="participants">
+        
+        @if (participants()[0].id == person.id) {
+          <div class="table-header">
+            <p>
+              Owner: {{ person.name }} 
+              
+              @if(person.isSubmitted)
+                {(Submitted)}
+              @else
+                {(Still choosing)}
+            </p>
+            <button>Edit my Pre-Order</button>
+          </div>
+        }
+        @else {
+          <div class="table-header">
+            <p>
+              Guest: {{ person.name }}
+            
+              @if(person.isSubmitted)
+                {(Submitted)}
+              @else
+                {(Still choosing)}
+            </p>
+            <button>Remove Guest</button>
+          </div>
+        }        
+        
+        @for (item of person.items; track $index) {
+          <table>
+            <tbody>
+              <tr>
+                <td>
+                  <img src="assets/svg/trash.svg" alt="" class="svg"/>
+                </td>
+                <td>
+                  <img [src]="item.dish.imageUrl" [alt]="item.dish.name" class="dish">
+                </td>
+                <td>
+                  {{ item.dish.name }}
+                </td>
+                <td>
+                  <button class="plus-minus">-</button>
+                </td>
+                <td>
+                  {{ item.quantity }}
+                </td>
+                <td>
+                  <button class="plus-minus">+</button>
+                </td>
+                <td>
+                  {{ item.dish.price * item.quantity | currency }}
+                </td>
+              </tr>                
+            </tbody>              
+          </table>
+        }
 
-  <section class="grandtotal">
+        <div class="table-header">
+            <p>Subtotal:</p>
+            <p>{{ person.total | currency }}</p>
+        </div>
+
+      </ul>
+    }
+   
+
+  <section class="grand-total">
   
     <h2>Grand Total</h2>
-    <p>{{ total | currency }}</p>
-  
+    <p class="green">{{ total | currency }}</p>
+
   </section>
+
+  <button class="submit-button" [disabled]="isSubmittedOrder()" (click)="submitOrder()">
+    Submit Pre-Order
+  </button>
 
 </main>

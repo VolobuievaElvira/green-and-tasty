@@ -16,4 +16,11 @@ export class GroupOrderPageComponent {
 
   readonly invite = GROUP_ORDER_PREVIEW.invite;
   readonly total = GROUP_ORDER_PREVIEW.sessions.total;
+
+  isSubmittedOrder = signal(false);
+
+  submitOrder() {
+    this.isSubmittedOrder.set(true);
+  }
 }
+
